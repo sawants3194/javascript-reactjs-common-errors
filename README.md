@@ -67,3 +67,49 @@ This ensures that `input.value` is a clean, properly formatted string.
 
 ---
 
+
+
+---
+
+## 3. QuotaExceededError caused by storing large image data in localStorage.
+
+### 🧨 Error:
+```
+
+Uncaught QuotaExceededError: Failed to execute 'setItem' on 'Storage': Setting the value of 'cart' exceeded the quota.
+
+````
+
+### ✅ Fix:
+- Avoid storing large binary data (like images) in `localStorage`
+- Serve images on-demand via backend
+
+### 💡 Code Example:
+```js
+// ✅ Backend (Express)
+exports.getProductPhoto = async (req, res) => {
+  const product = await Product.findById(req.params.productId).select("photo");
+  if (product && product.photo && product.photo.data) {
+    res.set("Content-Type", product.photo.contentType);
+    return res.send(product.photo.data);
+  }
+  res.status(404).json({ error: "Photo not found" });
+};
+
+// ✅ Frontend (React)
+<img
+  src={`http://localhost:8000/api/product/photo/${product._id}`}
+  alt={product.name}
+/>
+````
+
+---
+
+## 📚 Topics Covered
+
+* `QuotaExceededError` in localStorage
+* Controlled vs uncontrolled inputs in React
+* React key prop errors
+* Fetch/network handling best practices
+* And more...
+`
