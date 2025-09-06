@@ -107,9 +107,22 @@ exports.getProductPhoto = async (req, res) => {
 
 ## 📚 Topics Covered
 
-* `QuotaExceededError` in localStorage
-* Controlled vs uncontrolled inputs in React
-* React key prop errors
-* Fetch/network handling best practices
-* And more...
-`
+
+## 4. Warning: Invalid DOM property `class`. Did you mean `className`?
+```js
+// ❌ Error: Using wrong attribute in JSX
+<div class="container">Hello World</div>
+```
+
+👉 This gives the error:
+
+```
+Warning: Invalid DOM property `class`. Did you mean `className`?
+```
+
+✅ Fix:
+
+```js
+<div className="container">Hello World</div>
+```
+
