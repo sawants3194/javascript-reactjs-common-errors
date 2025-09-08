@@ -188,3 +188,45 @@ declare module "../components/Profile" {
 * React + TypeScript import declaration errors
 
 ---
+
+---
+
+## 6. Common Error: Using `onClick={handleClick(n)}` instead of `onClick={() => handleClick(n)}`
+
+### Problem
+
+In React, if you write:
+
+```jsx
+<button onClick={handleClick(n)}>Click</button>
+```
+
+👉 `handleClick(n)` is executed **immediately when the component renders**, not when the button is clicked.
+This happens because you are **calling the function** instead of **passing a reference**.
+
+---
+
+### Correct Usage
+
+To ensure the function only runs on button click, wrap it inside an arrow function:
+
+```jsx
+<button onClick={() => handleClick(n)}>Click</button>
+```
+
+Now React knows to call `handleClick(n)` **only when the user clicks**.
+
+---
+
+### Key Difference
+
+* `onClick={() => handleClick(n)}` → Passes a **function reference**, executes only on click ✅
+* `onClick={handleClick(n)}` → Executes the function immediately on render ❌
+
+---
+
+### Interview Insight
+
+If you need to pass arguments in an event handler, **always use an arrow function**.
+
+---
